@@ -1,6 +1,6 @@
-InputFile	::= program EOF .
-program		::= {statement} .
-statement	::= {formula TERM} .
+InputFile	::= [program] EOF .
+program		::= statement {statement} .
+statement	::= formula TERM .
 formula		::= IF formula THEN evaluation ELSE formula | evaluation .
 evaluation	::= infix IMPLIES evaluation | infix .
 infix		::= infix BINOP unary | unary .
