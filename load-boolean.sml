@@ -29,6 +29,3 @@ fun parse (lexer) =
     end
 
 val parseString = parse o stringToLexer
-
-
-

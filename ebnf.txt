@@ -1,11 +1,12 @@
 InputFile	::= [program] EOF .
 program		::= statement {statement} .
 statement	::= formula TERM .
-formula		::= IF formula THEN evaluation ELSE formula | evaluation .
-evaluation	::= infix IMPLIES evaluation | infix .
-infix		::= infix BINOP unary | unary .
-unary		::= NOT unary | val .
-val			::= CONST | ID | LPAREN formula RPAREN .
+formula		::= IF formula THEN formula ELSE formula
+			|	formula IMPLIES formula
+			|	formula BINOP formula
+			|	NOT formula
+			|	LPAREN formula RPAREN
+			|	CONST | ID .
 BINOP		::= AND | OR | XOR | EQUALS .
 CONST		::= TRUE | FALSE .
 TERM		::= ";" .

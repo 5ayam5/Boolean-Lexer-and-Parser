@@ -9,7 +9,7 @@ structure BTokens = Tokens
 
 	val pos = ref 0
 	val eof = fn () => Tokens.EOF(!pos, !pos)
-	val error = fn (e,l1,l2) => TextIO.output(TextIO.stdOut, "lex:line " ^ Int.toString(l1) ^ " l2 = " ^ Int.toString(l2) ^ ": " ^ e ^ "\n")
+	val error = fn (e,l1,l2) => ()
 
 %%
 %header (functor BooleanLexFun(structure Tokens:Boolean_TOKENS));
