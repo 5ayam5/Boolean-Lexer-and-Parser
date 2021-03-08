@@ -1,28 +1,24 @@
-(* User  declarations *)
-
 %%
-(* required declarations *)
 %name Boolean
-
 %term
 	EOF | TERM | IF | THEN | ELSE | IMPLIES | NOT | LPAREN | RPAREN | AND | OR | XOR | EQUALS | TRUE | FALSE | ID of string
-
 %nonterm
 	InputFile | program | statement | formula | CONST
+%pos int
 
 %start InputFile
 
-%pos int
-
-(*optional declarations *)
 %eop EOF
 %noshift EOF
 
-(* %header *)
+%arg (fileName) : string
+
 %right IF THEN ELSE
 %right IMPLIES
-%right NOT
 %left AND OR XOR EQUALS
+%right NOT
+
+%verbose
 
 %%
 	InputFile:	program (program)
