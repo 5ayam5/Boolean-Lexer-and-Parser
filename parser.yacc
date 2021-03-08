@@ -11,8 +11,6 @@
 %eop EOF
 %noshift EOF
 
-%arg (fileName) : string
-
 %right IF THEN ELSE
 %right IMPLIES
 %left AND OR XOR EQUALS
