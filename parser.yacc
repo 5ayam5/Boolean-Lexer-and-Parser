@@ -1,9 +1,9 @@
 %%
 %name Boolean
 %term
-	EOF | TERM | IF | THEN | ELSE | IMPLIES | NOT | LPAREN | RPAREN | AND | OR | XOR | EQUALS | TRUE | FALSE | ID of string
+	EOF | TERM | IF | THEN | ELSE | IMPLIES | NOT | LPAREN | RPAREN | AND | OR | XOR | EQUALS | CONST of string | ID of string | ERR of string
 %nonterm
-	InputFile | program | statement | formula | CONST
+	InputFile | program | statement | formula
 %pos int
 
 %start InputFile
@@ -19,24 +19,20 @@
 %verbose
 
 %%
-	InputFile:	program (program)
+	InputFile:	program (print("InputFile -> program EOF\n"))
+	
+	program:	statement program (print("program -> statement program\n"))
 			|	()
 	
-	program:	statement ()
-			|	statement program ()
-	
-	statement:	formula TERM ()
+	statement:	formula TERM (print("statement -> formula TERM\n"))
 
-	formula:	NOT formula (print("NOT production\n"))
-			|	formula AND formula (print("AND production\n"))
-			|	formula OR formula (print("OR production\n"))
-			|	formula XOR formula (print("XOR production\n"))
-			|	formula EQUALS formula (print("EQUALS production\n"))
-			|	formula IMPLIES formula (print("IMPLIES production\n"))
-			|	IF formula THEN formula ELSE formula (print("ITE production\n"))
-			|	LPAREN formula RPAREN (print("parens\n"))
-			|	CONST (print(" CONST\n"))
-			|	ID	(print(ID ^ "\n"))
-	
-	CONST:		TRUE (print("1"))
-			|	FALSE (print("0"))
+	formula:	NOT formula (print("formula -> NOT formula\n"))
+			|	formula AND formula (print("formula -> formula AND formula\n"))
+			|	formula OR formula (print("formula -> formula OR formula\n"))
+			|	formula XOR formula (print("formula -> formula XOR formula\n"))
+			|	formula EQUALS formula (print("formula -> formula EQUALS formula\n"))
+			|	formula IMPLIES formula (print("formula -> formula IMPLIES formula\n"))
+			|	IF formula THEN formula ELSE formula (print("formula -> IF formula THEN formula ELSE formula\n"))
+			|	LPAREN formula RPAREN (print("formula -> LPAREN formula RPAREN\n"))
+			|	CONST (print("formula -> CONST " ^ CONST ^ "\n"))
+			|	ID	(print("formula -> ID " ^ ID ^ "\n"))

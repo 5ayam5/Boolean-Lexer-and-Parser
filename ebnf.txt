@@ -1,5 +1,5 @@
-InputFile	::= [program] EOF .
-program		::= statement {statement} .
+InputFile	::= program EOF .
+program		::= {statement} .
 statement	::= formula TERM .
 formula		::= IF formula THEN formula ELSE formula
 			|	formula IMPLIES formula
@@ -8,7 +8,6 @@ formula		::= IF formula THEN formula ELSE formula
 			|	LPAREN formula RPAREN
 			|	CONST | ID .
 BINOP		::= AND | OR | XOR | EQUALS .
-CONST		::= TRUE | FALSE .
 TERM		::= ";" .
 IF			::= "IF" .
 THEN		::= "THEN" .
@@ -21,8 +20,7 @@ AND			::= "AND" .
 OR			::= "OR" .
 XOR			::= "XOR" .
 EQUALS		::= "EQUALS" .
-TRUE		::= "TRUE" .
-FALSE		::= "FALSE" .
+CONST		::= "TRUE" | "FALSE" .
 ID			::= letter {letter} .
 letter		::= lowerCase | upperCase .
 lowerCase	::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" .
