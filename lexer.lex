@@ -1,5 +1,4 @@
 exception LexError;
-val TokenList = ref []
 structure BTokens = Tokens
 	type pos = int
 	(* Position in file *)
@@ -12,6 +11,7 @@ structure BTokens = Tokens
 	val line = ref 1;
 	val col = ref 0;
 	val eolpos = ref 0;
+	val TokenList = ref [];
 	val eof = fn () => 
 		let
 			fun revAndPrint nil = print("[")
