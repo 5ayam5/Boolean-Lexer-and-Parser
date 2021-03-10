@@ -1,5 +1,5 @@
-exception LexError;
 structure BTokens = Tokens
+	exception LexError
 	type pos = int
 	(* Position in file *)
 	type svalue = BTokens.svalue
@@ -20,7 +20,7 @@ structure BTokens = Tokens
 		in
 			Tokens.EOF(!line, !col)
 		end
-	val error = fn (e, line, col) => print("Unknown token:" ^ (Int.toString line) ^ ":" ^ (Int.toString col) ^ ":" ^ e ^ "\n")
+	val error = fn (e, line, col) => TextIO.output(TextIO.stdErr, "Unknown token:" ^ (Int.toString line) ^ ":" ^ (Int.toString col) ^ ":" ^ e ^ "\n")
 
 
 %%

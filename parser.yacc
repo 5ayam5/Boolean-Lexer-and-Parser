@@ -1,9 +1,9 @@
 %%
 %name Boolean
 %term
-	EOF | TERM | IF | THEN | ELSE | IMPLIES | NOT | LPAREN | RPAREN | AND | OR | XOR | EQUALS | CONST of string | ID of string | ERR of string
+	EOF | TERM | IF | THEN | ELSE | IMPLIES | NOT | LPAREN | RPAREN | AND | OR | XOR | EQUALS | CONST of string | ID of string
 %nonterm
-	InputFile | program | statement | formula
+	InputFile of ParseTree.node | program of ParseTree.node | statement of ParseTree.node | formula of ParseTree.node
 %pos int
 
 %start InputFile
@@ -19,20 +19,20 @@
 %verbose
 
 %%
-	InputFile:	program (print("InputFile -> program EOF\n"))
+	InputFile:	program (ParseTree.Production ("InputFile -> program", [program]))
 	
-	program:	statement program (print("program -> statement program\n"))
-			|	()
+	program:	statement program (ParseTree.Production ("program -> statement program", [statement, program]))
+			|	(ParseTree.Production ("program -> epsilon", []))
 	
-	statement:	formula TERM (print("statement -> formula TERM\n"))
+	statement:	formula TERM (ParseTree.Production ("statement -> formula TERM", [formula, ParseTree.TERM]))
 
-	formula:	NOT formula (print("formula -> NOT formula\n"))
-			|	formula AND formula (print("formula -> formula AND formula\n"))
-			|	formula OR formula (print("formula -> formula OR formula\n"))
-			|	formula XOR formula (print("formula -> formula XOR formula\n"))
-			|	formula EQUALS formula (print("formula -> formula EQUALS formula\n"))
-			|	formula IMPLIES formula (print("formula -> formula IMPLIES formula\n"))
-			|	IF formula THEN formula ELSE formula (print("formula -> IF formula THEN formula ELSE formula\n"))
-			|	LPAREN formula RPAREN (print("formula -> LPAREN formula RPAREN\n"))
-			|	CONST (print("formula -> CONST " ^ CONST ^ "\n"))
-			|	ID	(print("formula -> ID " ^ ID ^ "\n"))
+	formula:	NOT formula (ParseTree.Production ("formula -> NOT formula", [ParseTree.NOT, formula]))
+			|	formula AND formula (ParseTree.Production ("formula -> formula AND formula", [formula1, ParseTree.AND, formula2]))
+			|	formula OR formula (ParseTree.Production ("formula -> formula OR formula", [formula1, ParseTree.OR, formula2]))
+			|	formula XOR formula (ParseTree.Production ("formula -> formula XOR formula", [formula1, ParseTree.XOR, formula2]))
+			|	formula EQUALS formula (ParseTree.Production ("formula -> formula EQUALS formula", [formula1, ParseTree.EQUALS, formula2]))
+			|	formula IMPLIES formula (ParseTree.Production ("formula -> formula IMPLIES formula", [formula1, ParseTree.IMPLIES, formula2]))
+			|	IF formula THEN formula ELSE formula (ParseTree.Production ("formula -> IF formula THEN formula ELSE formula", [ParseTree.IF, formula1, ParseTree.THEN, formula2, ParseTree.ELSE, formula3]))
+			|	LPAREN formula RPAREN (ParseTree.Production ("formula -> LPAREN formula RPAREN", [ParseTree.LPAREN, formula, ParseTree.RPAREN]))
+			|	CONST (ParseTree.CONST CONST)
+			|	ID	(ParseTree.ID ID)

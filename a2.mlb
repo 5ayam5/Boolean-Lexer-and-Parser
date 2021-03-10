@@ -1,6 +1,7 @@
 $(SML_LIB)/basis/basis.mlb
 $(SML_LIB)/basis/mlton.mlb
 $(SML_LIB)/mlyacc-lib/mlyacc-lib.mlb
+ParseTree.sml
 parser.yacc.sig
 parser.yacc.sml
 lexer.lex.sml

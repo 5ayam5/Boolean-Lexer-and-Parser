@@ -10,7 +10,7 @@ fun main () =
 			fun invoke lexstream =
 					let
 						fun print_error (s, line, col) =
-								print("Syntax Error:" ^ (Int.toString line) ^ ":" ^ (Int.toString col) ^ ":" ^ s ^ "\n");
+								TextIO.output(TextIO.stdErr, "Syntax Error:" ^ (Int.toString line) ^ ":" ^ (Int.toString col) ^ ":" ^ s ^ "\n");
 					in
 						BooleanParser.parse(0,lexstream,print_error,())
 					end
@@ -37,9 +37,12 @@ fun main () =
 			val inputStream = TextIO.openIn fileName
 			val str = TextIO.input inputStream
 			val _ = TextIO.closeIn inputStream
+
+			val tree = parse (stringToLexer str)
+			val _ = ParseTree.postOrder tree
 		in
-			parse (stringToLexer str)
+			()
 		end
-		handle LexError => ();
+		handle Exception => ();
 
 val _ = main ();
