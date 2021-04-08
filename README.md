@@ -5,4 +5,4 @@ Implements the lexer and parser for a language made up of only boolean statement
 make all  
 ./a2 <your file name>
 ```
-(if no fine name is specified, it looks for "in" else throws an exception)
+(if no file name is specified, it looks for "in" else throws an exception)
